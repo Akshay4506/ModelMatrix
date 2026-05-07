@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>SAP RPT-1 OSS Benchmarking — Model Arena</title>
+  <meta name="description" content="Upload your CSV and instantly benchmark XGBoost, LightGBM, CatBoost and SAP RPT-1 OSS. Get a detailed model recommendation for your use case."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/style.css?v=2"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="/static/landing.html" class="nav-brand" id="nav-logo">ModelMatrix</a>
+    <div class="nav-actions">
+      <a href="/static/uploader.html" class="nav-btn-upload">Upload</a>
+      <button class="nav-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <svg id="theme-icon-dark" class="theme-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="theme-icon-light" class="theme-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 12h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+  <section id="results-section" class="section" hidden>
+
+    <!-- Dataset info bar -->
+    <div class="info-bar" id="info-bar"></div>
+
+    <div class="actions-bar">
+      <button id="export-csv-btn" class="btn-ghost">📊 Download CSV</button>
+      <button id="export-json-btn" class="btn-ghost">📋 Export Results (JSON)</button>
+    </div>
+
+    <!-- KPI cards -->
+    <h2 class="section-title">Summary <span class="title-accent">Statistics</span></h2>
+    <div class="kpi-grid" id="kpi-grid"></div>
+
+    <!-- Legend -->
+    <div class="legend" id="legend"></div>
+
+    <!-- Charts -->
+    <h2 class="section-title">Model <span class="title-accent">Comparison</span></h2>
+    <div class="charts-grid" id="charts-grid"></div>
+
+    <!-- Full table -->
+    <h2 class="section-title">Full <span class="title-accent">Metrics Table</span></h2>
+    <div class="table-card">
+      <div class="table-scroll">
+        <table id="results-table" class="results-table">
+          <thead id="results-thead"></thead>
+          <tbody id="results-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Recommendation -->
+    <h2 class="section-title">🏆 Model <span class="title-accent">Recommendation</span></h2>
+    <div id="recommendation-grid" class="rec-grid"></div>
+
+    <!-- Ensemble Analysis -->
+    <h2 class="section-title" id="ensemble-section-title">🧩 Ensemble <span class="title-accent">Analysis</span></h2>
+    <div id="ensemble-grid" class="ensemble-grid"></div>
+
+    <!-- Statistical Rigor -->
+    <h2 class="section-title">⚖️ Statistical <span class="title-accent">Rigor & Ranking</span></h2>
+    <div class="rigor-card" id="rigor-section">
+      <div class="rigor-header">
+        <div id="friedman-badge" class="badge-pill">Analyzing significance...</div>
+        <div class="rigor-meta">Based on rank-distribution across all cross-validation folds.</div>
+      </div>
+      <div class="rigor-table-wrapper">
+        <table class="rigor-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Average Rank (1 is best)</th>
+              <th>Fold Win Rate</th>
+              <th>Stability</th>
+            </tr>
+          </thead>
+          <tbody id="rigor-tbody">
+            <!-- Injected by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Interactive Playground -->
+    <h2 class="section-title">🎮 Interactive <span class="title-accent">Playground</span></h2>
+    <div class="playground-card" id="playground-section">
+      <div class="playground-layout">
+        <div class="playground-inputs">
+          <p class="playground-intro">Adjust the inputs below to get a live prediction from the best-performing model. Changes update instantly — no page reload needed.</p>
+          <div id="playground-form" class="playground-grid">
+            <!-- Inputs injected by JS -->
+          </div>
+        </div>
+        <div class="playground-output">
+          <div class="output-card">
+            <div class="output-label">Live Prediction</div>
+            <div id="prediction-value" class="prediction-main">—</div>
+            <div id="prediction-sub" class="prediction-sub">Select or adjust inputs</div>
+            <div id="probability-bars" class="prob-container"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reset -->
+    <div class="reset-bar">
+      <button id="reset-btn" class="btn-ghost-lg">↩ Upload a New Dataset</button>
+    </div>
+  </section>
+
+
+
+</main>
+
+<footer class="footer">
+  SAP RPT-1 OSS Benchmarking · Built with FastAPI &amp; Chart.js
+</footer>
+
+<script src="/static/app.js?v=2"></script>
+</body>
+</html>

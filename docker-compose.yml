@@ -1,0 +1,28 @@
+services:
+  sap-rpt1:
+    build:
+      context: .
+      dockerfile: code/docker/Dockerfile
+      target: sap-rpt1
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app/code
+      - HUGGING_FACE_HUB_TOKEN=${HUGGING_FACE_HUB_TOKEN}
+      - HF_TOKEN=${HF_TOKEN}
+    working_dir: /app/code
+    # Default to running single experiment as shown in README
+    command: -m runners.run_experiment --dataset analcatdata_authorship --model sap-rpt1-hf
+
+  baselines:
+    build:
+      context: .
+      dockerfile: code/docker/Dockerfile
+      target: baselines
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app/code
+    working_dir: /app/code
+    # Default to running batch experiments as shown in GEMINI.md
+    command: -m runners.run_batch --datasets config/datasets.yaml --models config/models.yaml

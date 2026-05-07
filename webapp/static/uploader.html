@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>SAP RPT-1 OSS Benchmarking — Model Arena</title>
+  <meta name="description" content="Upload your CSV and instantly benchmark XGBoost, LightGBM, CatBoost and SAP RPT-1 OSS. Get a detailed model recommendation for your use case."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/style.css?v=2"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="/static/landing.html" class="nav-brand" id="nav-logo">ModelMatrix</a>
+    <div class="nav-actions">
+      <a href="/static/uploader.html" class="nav-btn-upload">Upload</a>
+      <button class="nav-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <svg id="theme-icon-dark" class="theme-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="theme-icon-light" class="theme-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 12h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HEADER SECTION -->
+<header class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🔬 ML Model Arena</div>
+    <h1>Upload. Benchmark. <span class="gradient-text">Decide.</span></h1>
+    <p>Drop your CSV dataset and we'll automatically run <strong>XGBoost, LightGBM, CatBoost &amp; SAP RPT-1 OSS</strong> in parallel — then tell you exactly which model wins for your use case.</p>
+    <div class="hero-chips">
+      <span class="chip">5-Fold Cross-Validation</span>
+      <span class="chip">Auto Task Detection</span>
+      <span class="chip">Smart Recommendation</span>
+      <span class="chip">Max 5 MB CSV</span>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- ░░ RESUME SECTION (Shown if navigating back) ░░ -->
+  <section id="resume-section" class="section" hidden>
+    <div class="resume-card">
+      <div class="resume-icon">📁</div>
+      <div class="resume-content">
+        <h3>Resume Previous Session?</h3>
+        <p>Found results for <strong id="resume-filename">dataset.csv</strong>.</p>
+        <div class="resume-actions">
+          <button id="resume-clear-btn" class="btn-ghost">🗑️ Clear Previous Upload</button>
+          <button id="resume-go-btn" class="btn-primary">📊 Go to Results</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- UPLOAD AREA -->
+<section id="upload-section" class="section">
+    <div id="drop-zone" class="drop-zone" role="button" tabindex="0" aria-label="Upload CSV file">
+      <div class="drop-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 16V4m0 0L8 8m4-4l4 4"/>
+          <path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/>
+        </svg>
+      </div>
+      <div class="drop-text">
+        <p class="drop-title">Drag &amp; drop your CSV file</p>
+        <p class="drop-sub">or <span class="drop-link">click to browse</span></p>
+      </div>
+      <input type="file" id="file-input" accept=".csv" hidden/>
+    </div>
+    <p id="upload-error" class="error-msg" hidden></p>
+  </section>
+
+  <!-- ░░ FILE PREVIEW + TARGET SELECTOR ░░ -->
+  <section id="preview-section" class="section" hidden>
+    <div class="preview-header">
+      <div class="preview-meta" id="preview-meta"></div>
+      <button id="change-file-btn" class="btn-ghost">🗑️ Clear Upload</button>
+    </div>
+
+    <div class="target-picker">
+      <label for="target-select" class="picker-label">
+        <span class="picker-icon">🎯</span>
+        Select Target Column <span class="picker-hint">(the column you want to predict)</span>
+      </label>
+      <select id="target-select" class="target-select"></select>
+    </div>
+
+    <div class="preview-table-wrap">
+      <p class="table-label">Dataset Preview (first 5 rows)</p>
+      <div class="table-scroll">
+        <table id="preview-table" class="preview-table"></table>
+      </div>
+    </div>
+
+    <button id="run-btn" class="btn-primary">
+      <span class="btn-icon">⚡</span> Run Benchmark
+    </button>
+  </section>
+
+  <!-- ░░ LOADING ░░ -->
+  <section id="loading-section" class="section" hidden>
+    <div class="loader-card">
+      <div class="spinner-ring"></div>
+      <h2 class="loader-title">Running Benchmark</h2>
+      <p class="loader-sub">Training &amp; evaluating all 4 models across 5 folds…</p>
+      <div class="loader-steps" id="loader-steps">
+        <div class="step active" id="step-xgb">🟡 XGBoost</div>
+        <div class="step" id="step-lgb">🟢 LightGBM</div>
+        <div class="step" id="step-cat">🟣 CatBoost</div>
+        <div class="step" id="step-tabpfn">🟦 TabPFN</div>
+        <div class="step" id="step-sap">🩷 SAP RPT-1 OSS</div>
+        <div class="step" id="step-vote">🏆 Voting Ensemble</div>
+        <div class="step" id="step-stack">✨ Stacking Ensemble</div>
+      </div>
+    </div>
+  </section>
+
+
+
+</main>
+
+<footer class="footer">
+  SAP RPT-1 OSS Benchmarking · Built with FastAPI &amp; Chart.js
+</footer>
+
+<script src="/static/app.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>SAP RPT-1 OSS Benchmarking — Home</title>
+  <meta name="description" content="Discover the ultimate ML model arena. Benchmark XGBoost, LightGBM, CatBoost, TabPFN, and SAP RPT-1 OSS in seconds."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/style.css?v=2"/>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="/static/landing.html" class="nav-brand" id="nav-logo">ModelMatrix</a>
+    <div class="nav-actions">
+      <a href="/static/uploader.html" class="nav-btn-upload">Upload</a>
+      <button class="nav-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <svg id="theme-icon-dark" class="theme-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="theme-icon-light" class="theme-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 12h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+  <!-- ░░ HERO ░░ -->
+  <section class="landing-hero">
+    <div class="landing-hero-glow"></div>
+    <div class="landing-content">
+      <div class="hero-badge" style="margin-bottom: 2rem; display: inline-block;">🚀 The Ultimate Benchmark</div>
+      <h1 class="landing-title">Compare Models.<br><span class="gradient-text">Instantly.</span></h1>
+      <p class="landing-subtitle">
+        Upload your CSV and let our automated arena pit the world's best ML models against each other. 
+        Discover whether SAP RPT-1 OSS or traditional gradient boosters win on your specific data.
+      </p>
+      <div class="cta-container">
+        <a href="/static/uploader.html" class="btn-cta">Enter the Arena ⚔️</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ MODELS BANNER ░░ -->
+  <div class="models-banner">
+    <p style="color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; font-size: 0.85rem;">Supported Models</p>
+    <div class="models-list">
+      <div class="model-item">XGBoost</div>
+      <div class="model-item">LightGBM</div>
+      <div class="model-item">CatBoost</div>
+      <div class="model-item">TabPFN</div>
+      <div class="model-item">SAP RPT-1 OSS</div>
+    </div>
+  </div>
+
+  <!-- ░░ HOW IT WORKS ░░ -->
+  <section class="how-it-works">
+    <div class="hero-badge" style="margin-bottom: 1rem;">PIPELINE</div>
+    <h2 class="landing-title" style="font-size: 3rem; margin-bottom: 1rem;">How it <span class="gradient-text">Works</span></h2>
+    <p class="landing-subtitle">From raw CSV to actionable model recommendation in minutes — fully automated.</p>
+    
+    <div class="workflow-container">
+      <div class="workflow-step">
+        <div class="step-icon">📤</div>
+        <div class="step-num">01</div>
+        <h4>Upload CSV</h4>
+        <p>Drag & drop your dataset. We auto-detect features, types, and whether it's a classification or regression task.</p>
+      </div>
+      <div class="workflow-arrow">→</div>
+      <div class="workflow-step">
+        <div class="step-icon">🏋️</div>
+        <div class="step-num">02</div>
+        <h4>Parallel Training</h4>
+        <p>All 5 models run 5-fold cross-validation simultaneously. XGBoost, LightGBM, CatBoost, TabPFN & SAP RPT-1.</p>
+      </div>
+      <div class="workflow-arrow">→</div>
+      <div class="workflow-step">
+        <div class="step-icon">🧩</div>
+        <div class="step-num">03</div>
+        <h4>Ensemble Engine</h4>
+        <p>The top 3 models are automatically combined via Soft Voting and Stacking to squeeze out extra performance.</p>
+      </div>
+      <div class="workflow-arrow">→</div>
+      <div class="workflow-step">
+        <div class="step-icon">🔬</div>
+        <div class="step-num">04</div>
+        <h4>SHAP Analysis</h4>
+        <p>The winner is retrained on the full dataset. SHAP values reveal exactly which features matter most.</p>
+      </div>
+      <div class="workflow-arrow">→</div>
+      <div class="workflow-step">
+        <div class="step-icon">🎮</div>
+        <div class="step-num">05</div>
+        <h4>Live Playground</h4>
+        <p>Tweak feature values in real-time and see your model's live prediction update instantly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ FEATURES ░░ -->
+  <section class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Zero Configuration</h3>
+      <p>Simply drag and drop your CSV file. We automatically detect your target variable, infer the task type (classification or regression), and handle preprocessing.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <h3>Rigorous Validation</h3>
+      <p>All models are evaluated using 5-fold cross-validation to ensure statistically significant and reliable results, preventing overfitting on small datasets.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🧠</div>
+      <h3>Ensemble Insights</h3>
+      <p>We don't just pick a winner. We automatically build Voting and Stacking ensembles to see if combining the models yields even better performance.</p>
+    </div>
+  </section>
+
+  <footer class="footer" style="margin-top: auto;">
+    SAP RPT-1 OSS Benchmarking · Built with FastAPI &amp; Chart.js
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

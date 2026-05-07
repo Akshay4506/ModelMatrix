@@ -1,0 +1,33 @@
+# Dataset Configuration
+# =====================
+
+# Local Datasets (from datasets folder)
+local_datasets:
+  enabled: true
+  path: '../datasets'
+
+# TabZilla Datasets (subset of 20)
+tabzilla:
+  enabled: false  # Enable when data is available
+  path: '../datasets/tabzilla'
+
+# OpenML-CC18 (Classification subset)
+openml_cc18:
+  enabled: false
+  path: '../datasets/openml_cc18'
+
+# Dataset Filters
+filters:
+  min_samples: 100
+  max_samples: 100000
+  min_features: 2
+  max_features: 1000
+  task_types:
+    - classification
+    - regression
+
+# Preprocessing
+preprocessing:
+  handle_missing: 'mean'  # mean, median, most_frequent, drop
+  encode_categoricals: true
+  scale_features: false  # Most models handle scaling internally
