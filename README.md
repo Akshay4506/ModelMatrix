@@ -1,12 +1,3 @@
----
-title: SAP RPT1 Benchmarker
-emoji: 🚀
-colorFrom: blue
-colorTo: indigo
-sdk: docker
-pinned: false
----
-
 # SAP RPT-1 Benchmarking
 ## 🚀 Setup
 
