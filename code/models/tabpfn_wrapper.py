@@ -13,9 +13,14 @@ Date: November 2025
 
 import time
 import logging
+import os
 from typing import Optional, Union
 import numpy as np
 import pandas as pd
+
+# Automatically accept the TabPFN license to prevent browser/socket crashes on Windows
+os.environ["TABPFN_LICENSE"] = "accept"
+os.environ["TABPFN_ACCEPT_LICENSE"] = "1"
 
 # ── Patch for old TabPFN compatibility with newer torch ──────────────────────
 try:
@@ -145,7 +150,7 @@ class TabPFNWrapper(BaseModelWrapper):
                 self.model = TabPFNClassifier(device=actual_device)
 
             # Fit model
-            self.model.fit(X, y, overwrite_warning=True)
+            self.model.fit(X, y)
 
             self.is_fitted = True
             self.fit_time = time.time() - start_time

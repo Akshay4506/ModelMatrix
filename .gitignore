@@ -32,6 +32,8 @@ results/
 datasets/
 *.csv
 *.log
+catboost_info/
+webapp/catboost_info/
 
 # OS
 .DS_Store
