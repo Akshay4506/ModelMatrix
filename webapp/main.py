@@ -11,8 +11,9 @@ load_dotenv(Path(__file__).parent / ".env")
 
 import pandas as pd
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
+from plots_generator import generate_plots_pdf
 
 try:
     from benchmark import run_benchmark, infer_task
@@ -266,3 +267,19 @@ async def predict(data: dict):
         import traceback
         traceback.print_exc()
         return JSONResponse({"error": str(e)}, status_code=400)
+@app.post("/download-plots")
+async def download_plots(data: dict):
+    """
+    Generate and download scientific plots as a PDF.
+    """
+    try:
+        pdf_buffer = generate_plots_pdf(data)
+        return StreamingResponse(
+            pdf_buffer,
+            media_type="application/pdf",
+            headers={"Content-Disposition": "attachment; filename=modelmatrix_plots.pdf"}
+        )
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(500, f"Plot generation failed: {e}")

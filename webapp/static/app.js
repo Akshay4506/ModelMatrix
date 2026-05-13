@@ -37,6 +37,7 @@ const resultsSection = document.getElementById("results-section");
 const resetBtn       = document.getElementById("reset-btn");
 const exportCsvBtn   = document.getElementById("export-csv-btn");
 const exportJsonBtn  = document.getElementById("export-json-btn");
+const downloadPlotsBtn = document.getElementById("download-plots-btn");
 
 const resumeSection  = document.getElementById("resume-section");
 const resumeFilename = document.getElementById("resume-filename");
@@ -78,6 +79,42 @@ if (exportCsvBtn) exportCsvBtn.addEventListener("click", () => {
 if (exportJsonBtn) exportJsonBtn.addEventListener("click", () => {
   const data = JSON.parse(sessionStorage.getItem("lastResults"));
   if (data) exportToJSON(data);
+});
+
+if (downloadPlotsBtn) downloadPlotsBtn.addEventListener("click", async () => {
+  const data = JSON.parse(sessionStorage.getItem("lastResults"));
+  if (!data) {
+    alert("Please run a benchmark first to generate results before downloading plots.");
+    return;
+  }
+
+  const originalText = downloadPlotsBtn.innerHTML;
+  downloadPlotsBtn.innerHTML = "⏳ Generating...";
+  downloadPlotsBtn.disabled = true;
+
+  try {
+    const res = await fetch("/download-plots", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) throw new Error("Failed to generate plots");
+    
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "modelmatrix_plots.pdf";
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  } catch (e) {
+    alert("Error generating plots: " + e.message);
+  } finally {
+    downloadPlotsBtn.innerHTML = originalText;
+    downloadPlotsBtn.disabled = false;
+  }
 });
 
 if (resumeClearBtn) resumeClearBtn.addEventListener("click", () => {
