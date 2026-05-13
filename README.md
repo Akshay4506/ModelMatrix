@@ -31,10 +31,11 @@ cd "MINI proj SAP"
 # Install everything in one command
 pip install -e ".[models,baselines]"
 
-# Download datasets (19 datasets from OpenML)
-cd code
-python -m datasets.download_tabarena
-cd ..
+# 1. Download datasets (19 datasets from OpenML)
+python scripts/download_datasets.py
+
+# 2. Merge X/y files (required for Web App frontend)
+python scripts/merge_datasets.py
 ```
 
 ## 🔑 Hugging Face Token Setup (Required for SAP RPT-1 OSS)

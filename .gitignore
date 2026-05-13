@@ -27,6 +27,9 @@ wheels/
 .installed.cfg
 *.egg
 
+# Datasets
+datasets/
+
 # Results and Data
 results/
 datasets/
