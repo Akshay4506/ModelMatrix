@@ -27,7 +27,7 @@ MODEL_COLORS = {
     "XGBoost":            "#f59e0b",
     "LightGBM":           "#10b981",
     "CatBoost":           "#6366f1",
-    "SAP-RPT-1-OSS":      "#ec4899",
+    "SAP RPT-1 OSS":      "#ec4899",
     "TabPFN":             "#3b82f6",
     "Voting Ensemble":    "#fbbf24",
     "Stacking Ensemble":  "#a78bfa",
